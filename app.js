@@ -5,6 +5,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const i18n = require("i18n");
+const cors = require('cors');
 
 const config = require('./config');
 
@@ -19,6 +20,12 @@ i18n.configure({
 });
 
 i18n.setLocale(config.locale);
+
+const corsConfig = {
+    origin: config.allowedCorsOrigin,
+    allowedHeaders: ['Content-Type'],
+    methods: ['POST']
+}
 
 // default: using 'accept-language' header to guess language settings
 app.use(i18n.init);
@@ -35,7 +42,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(config.subpath, routes);
+app.options(config.subpath, cors(corsConfig))
+app.use(config.subpath, cors(corsConfig), routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
