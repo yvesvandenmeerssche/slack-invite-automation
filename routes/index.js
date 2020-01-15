@@ -30,6 +30,12 @@ router.post('/invite', function(req, res) {
           //       or
           //   {"ok":false,"error":"already_invited"}
           if (err) { return res.send('Error:' + err); }
+
+          if (req.accepts('json')) {
+            // Forward response from Slack
+            res.set('Content-Type', 'application/json').send(body)
+            return
+          }
           body = JSON.parse(body);
           if (body.ok) {
             res.render('result', {

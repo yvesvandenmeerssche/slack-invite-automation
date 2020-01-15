@@ -23,7 +23,7 @@ i18n.setLocale(config.locale);
 
 const corsConfig = {
     origin: config.allowedCorsOrigin,
-    allowedHeaders: ['Content-Type'],
+    allowedHeaders: ['Content-Type', 'Accept'],
     methods: ['POST']
 }
 
