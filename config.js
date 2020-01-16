@@ -19,5 +19,5 @@ module.exports = {
   // default locale
   locale: process.env.LOCALE || "en",
   subpath: process.env.SUBPATH || "/",
-  allowedCorsOrigin: process.env.ALLOWED_CORS_ORIGIN || null
+  allowedCorsOrigin: (process.env.ALLOWED_CORS_ORIGIN || '').split(',')
 };
